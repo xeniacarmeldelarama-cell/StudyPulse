@@ -1,0 +1,409 @@
+:root {
+    --magic-primary: #1a0b2e;
+    --magic-secondary: #2d1b4e;
+    --magic-accent: #ffd700;
+    --magic-cyan: #00d4ff;
+    --magic-purple: #9d4edd;
+    --magic-rose: #ff006e;
+    --magic-emerald: #06ffa5;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    min-height: 100vh;
+    color: #e2e8f0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .magic-font {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+}
+
+/* Magical Background Effects */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    opacity: 0;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: var(--opacity); transform: scale(1); box-shadow: 0 0 10px var(--color); }
+}
+
+.floating-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    animation: float-orb 20s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #9d4edd 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, #ff006e 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    animation-delay: -10s;
+}
+
+@keyframes float-orb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* Magical Glass Panels */
+.magic-panel {
+    background: rgba(26, 11, 46, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.magic-panel::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #9d4edd, #00d4ff, #ff006e, #9d4edd);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.magic-panel:hover::before {
+    opacity: 0.5;
+    animation: border-glow 3s linear infinite;
+}
+
+@keyframes border-glow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.magic-card {
+    background: rgba(45, 27, 78, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(157, 78, 221, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.magic-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.magic-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(157, 78, 221, 0.4);
+    box-shadow: 0 20px 60px rgba(157, 78, 221, 0.2),
+                0 0 30px rgba(0, 212, 255, 0.1);
+}
+
+.magic-card:hover::after {
+    opacity: 1;
+}
+
+/* Magical Text Effects */
+.magic-text {
+    background: linear-gradient(135deg, #ffd700 0%, #ff006e 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.glow-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+}
+
+/* Magical Buttons */
+.magic-btn {
+    background: linear-gradient(135deg, #9d4edd 0%, #00d4ff 100%);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.magic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.magic-btn:hover::before {
+    left: 100%;
+}
+
+.magic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(157, 78, 221, 0.4);
+}
+
+/* Magical Slider */
+.magic-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #06ffa5, #ffd700, #ff006e);
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.magic-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd700 0%, #ff006e 100%);
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    border: 2px solid white;
+    transition: transform 0.2s;
+}
+
+.magic-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+}
+
+/* Rune Circle for Burnout Score */
+.rune-circle {
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(157, 78, 221, 0.5));
+}
+
+.rune-circle svg {
+    transform: rotate(-90deg);
+    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+}
+
+.rune-glow {
+    animation: rune-pulse 3s ease-in-out infinite;
+}
+
+@keyframes rune-pulse {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(157, 78, 221, 0.5)); }
+    50% { filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.8)); }
+}
+
+/* Magical Particles */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-float 3s ease-out forwards;
+}
+
+@keyframes particle-float {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* Tab Magic */
+.magic-tab {
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.magic-tab.active {
+    background: linear-gradient(135deg, #9d4edd 0%, #00d4ff 100%);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+    color: white;
+}
+
+.magic-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ffd700, #ff006e);
+    transition: width 0.3s;
+}
+
+.magic-tab:hover::after {
+    width: 80%;
+}
+
+/* Spell Card Effects */
+.spell-card {
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border-left: 3px solid #ffd700;
+    position: relative;
+}
+
+.spell-card::before {
+    content: '✦';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ffd700;
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
+
+/* Breathing Magic Circle */
+.magic-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.magic-circle-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9d4edd, #00d4ff, #ff006e) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-ring 10s linear infinite;
+}
+
+@keyframes rotate-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.breathing-active {
+    animation: magic-breathe 4s ease-in-out infinite;
+}
+
+@keyframes magic-breathe {
+    0%, 100% { transform: scale(1); filter: hue-rotate(0deg); }
+    50% { transform: scale(1.15); filter: hue-rotate(30deg); }
+}
+
+/* Constellation Lines */
+.constellation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.1;
+}
+
+/* Scrollbar Magic */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a0b2e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #9d4edd, #00d4ff);
+    border-radius: 5px;
+}
+
+/* Loading Spell */
+.loading-rune {
+    animation: rune-spin 2s linear infinite;
+}
+
+@keyframes rune-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Section visibility */
+.section-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.section-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Floating animation */
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Metric circle animation */
+.metric-circle {
+    transition: stroke-dashoffset 1s ease-in-out;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}

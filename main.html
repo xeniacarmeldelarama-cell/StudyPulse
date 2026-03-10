@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Pulse | Magical Burnout & Stress Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="antialiased">
+    <!-- Magical Background -->
+    <div class="stars" id="stars-container"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 magic-panel border-b border-purple-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 via-cyan-400 to-rose-500 flex items-center justify-center rune-glow">
+                            <i class="fas fa-scroll text-white text-xl"></i>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border-2 border-yellow-400/50 animate-ping"></div>
+                    </div>
+                    <span class="text-3xl font-bold magic-font tracking-wider">
+                        Study <span class="magic-text">Pulse</span>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-2">
+                    <button id="btn-dashboard" class="magic-tab active px-6 py-2 rounded-full text-sm font-medium transition-all text-white">
+                        <i class="fas fa-star mr-2"></i>Dashboard
+                    </button>
+                    <button id="btn-checkin" class="magic-tab px-6 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white">
+                        <i class="fas fa-magic mr-2"></i>Daily Rune
+                    </button>
+                    <button id="btn-tracker" class="magic-tab px-6 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white">
+                        <i class="fas fa-hourglass-half mr-2"></i>Chronicle
+                    </button>
+                    <button id="btn-wellness" class="magic-tab px-6 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white">
+                        <i class="fas fa-sparkles mr-2"></i>Sanctuary
+                    </button>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:flex items-center space-x-2 text-sm text-purple-300">
+                        <i class="fas fa-hat-wizard"></i>
+                        <span class="magic-font">Arcanist</span>
+                    </div>
+                    <button class="md:hidden text-slate-300 hover:text-white" id="mobile-menu-btn">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden magic-panel border-t border-purple-500/20">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <button class="mobile-tab w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-purple-500/20" data-tab="dashboard">Dashboard</button>
+                <button class="mobile-tab w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-purple-500/20" data-tab="checkin">Daily Rune</button>
+                <button class="mobile-tab w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-purple-500/20" data-tab="tracker">Chronicle</button>
+                <button class="mobile-tab w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-purple-500/20" data-tab="wellness">Sanctuary</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="section-content active space-y-6">
+            <div class="text-center mb-8 floating">
+                <h2 class="text-4xl font-bold magic-font mb-2 glow-text text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-rose-400 to-cyan-400">
+                    Arcane Dashboard
+                </h2>
+                <p class="text-purple-300 italic">"In the realm of knowledge, balance is the truest magic"</p>
+            </div>
+
+            <!-- Hero Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Burnout Risk Score -->
+                <div class="magic-card rounded-2xl p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-rose-500/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                    <div class="relative z-10 text-center">
+                        <h3 class="text-purple-300 text-sm font-bold uppercase tracking-widest mb-6 magic-font">Essence Balance</h3>
+                        <div class="flex items-center justify-center mb-6">
+                            <div class="rune-circle w-40 h-40">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <defs>
+                                        <linearGradient id="magicGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#06ffa5" />
+                                            <stop offset="50%" stop-color="#ffd700" />
+                                            <stop offset="100%" stop-color="#ff006e" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#2d1b4e" stroke-width="6"/>
+                                    <circle id="burnout-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#magicGradient)" stroke-width="6" 
+                                            stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" class="metric-circle"/>
+                                    <text x="50" y="15" text-anchor="middle" fill="#ffd700" font-size="8" class="magic-font">✦</text>
+                                    <text x="85" y="50" text-anchor="middle" fill="#ffd700" font-size="8" class="magic-font">✦</text>
+                                    <text x="50" y="85" text-anchor="middle" fill="#ffd700" font-size="8" class="magic-font">✦</text>
+                                    <text x="15" y="50" text-anchor="middle" fill="#ffd700" font-size="8" class="magic-font">✦</text>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span id="burnout-score" class="text-4xl font-bold magic-font text-white glow-text">--</span>
+                                    <span class="text-xs text-purple-300 mt-1">/100</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p id="burnout-status" class="text-center text-sm font-medium text-cyan-300 magic-font tracking-wide">Cast your daily rune to reveal</p>
+                    </div>
+                </div>
+
+                <!-- Weekly Average -->
+                <div class="magic-card rounded-2xl p-6">
+                    <h3 class="text-purple-300 text-sm font-bold uppercase tracking-widest mb-4 magic-font">
+                        <i class="fas fa-crystal-ball mr-2"></i>Stress Prophecy
+                    </h3>
+                    <div class="h-40 relative">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-3xl font-bold magic-font text-yellow-400 glow-text" id="weekly-avg">--</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/50 text-purple-300">7 Moons</span>
+                    </div>
+                </div>
+
+                <!-- Sleep Quality -->
+                <div class="magic-card rounded-2xl p-6">
+                    <h3 class="text-purple-300 text-sm font-bold uppercase tracking-widest mb-4 magic-font">
+                        <i class="fas fa-moon mr-2"></i>Dream Weaving
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-3xl font-bold magic-font text-indigo-400 glow-text" id="avg-sleep">--</span>
+                                <span class="text-sm text-purple-300">hrs/night</span>
+                            </div>
+                            <div id="sleep-trend" class="text-sm">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-emerald-400 magic-font">Harmonious</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs text-purple-400 magic-font">
+                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
+                            <div class="flex justify-between h-16 items-end space-x-1" id="sleep-bars"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Recent Activity -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 magic-card rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold magic-font text-yellow-400">
+                            <i class="fas fa-scroll mr-2"></i>Knowledge Rituals
+                        </h3>
+                        <button id="goto-tracker" class="text-cyan-400 text-sm hover:text-cyan-300 transition magic-font">View Grimoire →</button>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="studyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="magic-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold magic-font text-yellow-400 mb-6">
+                        <i class="fas fa-wand-sparkles mr-2"></i>Quick Spells
+                    </h3>
+                    <div class="space-y-4">
+                        <button id="goto-checkin" class="w-full p-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30 hover:border-yellow-400 transition group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                            <div class="flex items-center space-x-3 relative z-10">
+                                <div class="w-12 h-12 rounded-full bg-purple-500/30 flex items-center justify-center group-hover:scale-110 transition rune-glow">
+                                    <i class="fas fa-plus text-yellow-400"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-slate-200 magic-font">Daily Rune</div>
+                                    <div class="text-xs text-purple-300">Cast your essence</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button id="goto-breathing" class="w-full p-4 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 hover:border-emerald-400 transition group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                            <div class="flex items-center space-x-3 relative z-10">
+                                <div class="w-12 h-12 rounded-full bg-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition rune-glow">
+                                    <i class="fas fa-wind text-emerald-400"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-slate-200 magic-font">Mana Breathing</div>
+                                    <div class="text-xs text-purple-300">Restore your power</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button id="goto-wellness" class="w-full p-4 rounded-xl bg-gradient-to-r from-rose-500/20 to-pink-500/20 border border-rose-500/30 hover:border-rose-400 transition group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                            <div class="flex items-center space-x-3 relative z-10">
+                                <div class="w-12 h-12 rounded-full bg-rose-500/30 flex items-center justify-center group-hover:scale-110 transition rune-glow">
+                                    <i class="fas fa-heart text-rose-400"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-slate-200 magic-font">Healing Ward</div>
+                                    <div class="text-xs text-purple-300">Ancient wisdom</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Check-in Section -->
+        <div id="section-checkin" class="section-content space-y-6 max-w-3xl mx-auto">
+            <div class="text-center mb-8 floating">
+                <h2 class="text-4xl font-bold magic-font mb-2 glow-text text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-rose-400 to-cyan-400">
+                    Daily Rune Casting
+                </h2>
+                <p class="text-purple-300 italic">"Reveal thy inner truth to the arcane crystals"</p>
+            </div>
+
+            <div class="magic-card rounded-2xl p-8 space-y-8 relative">
+                <div class="absolute top-4 right-4 text-yellow-400/30 text-4xl">✦</div>
+                <div class="absolute bottom-4 left-4 text-cyan-400/30 text-4xl">✦</div>
+                
+                <!-- Stress Level -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <label class="text-lg font-bold text-slate-200 magic-font">
+                            <i class="fas fa-brain mr-2 text-purple-400"></i>Current Mana Strain
+                        </label>
+                        <span id="stress-value" class="text-3xl font-bold magic-font text-yellow-400 glow-text">5</span>
+                    </div>
+                    <div class="relative">
+                        <input type="range" min="1" max="10" value="5" class="magic-slider" id="stress-slider">
+                        <div class="flex justify-between text-xs text-purple-400 mt-2 magic-font">
+                            <span>Serene</span>
+                            <span>Balanced</span>
+                            <span>Chaos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep Hours -->
+                <div class="space-y-4">
+                    <label class="text-lg font-bold text-slate-200 block magic-font">
+                        <i class="fas fa-moon mr-2 text-indigo-400"></i>Dream Realm Visitation
+                    </label>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="sleep-btn p-3 rounded-lg border border-purple-500/30 hover:border-yellow-400 hover:bg-purple-500/10 transition text-center group" data-value="4">
+                            <div class="text-2xl mb-1 group-hover:scale-110 transition">🌑</div>
+                            <div class="text-sm text-purple-300 magic-font">&lt; 5 hrs</div>
+                            <div class="text-xs text-rose-400">Drained</div>
+                        </button>
+                        <button class="sleep-btn p-3 rounded-lg border border-purple-500/30 hover:border-yellow-400 hover:bg-purple-500/10 transition text-center group" data-value="6">
+                            <div class="text-2xl mb-1 group-hover:scale-110 transition">🌒</div>
+                            <div class="text-sm text-purple-300 magic-font">5-6 hrs</div>
+                            <div class="text-xs text-amber-400">Weary</div>
+                        </button>
+                        <button class="sleep-btn p-3 rounded-lg border border-yellow-400 bg-purple-500/20 transition text-center ring-2 ring-yellow-400/50 group" data-value="7.5">
+                            <div class="text-2xl mb-1 group-hover:scale-110 transition">🌕</div>
+                            <div class="text-sm text-purple-300 magic-font">7-8 hrs</div>
+                            <div class="text-xs text-emerald-400">Restored</div>
+                        </button>
+                        <button class="sleep-btn p-3 rounded-lg border border-purple-500/30 hover:border-yellow-400 hover:bg-purple-500/10 transition text-center group" data-value="9">
+                            <div class="text-2xl mb-1 group-hover:scale-110 transition">✨</div>
+                            <div class="text-sm text-purple-300 magic-font">8+ hrs</div>
+                            <div class="text-xs text-cyan-400">Enchanted</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Study Hours -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <label class="text-lg font-bold text-slate-200 magic-font">
+                            <i class="fas fa-book mr-2 text-amber-400"></i>Knowledge Seeking
+                        </label>
+                        <span id="study-display" class="text-lg font-bold text-amber-400 magic-font glow-text">7.5 hrs</span>
+                    </div>
+                    <input type="range" min="0" max="16" step="0.5" value="7.5" class="w-full h-2 bg-purple-900/50 rounded-lg appearance-none cursor-pointer accent-amber-400" id="study-slider">
+                    <div class="flex justify-between text-xs text-purple-400 magic-font">
+                        <span>0h</span>
+                        <span>4h</span>
+                        <span>8h</span>
+                        <span>12h</span>
+                        <span>16h</span>
+                    </div>
+                </div>
+
+                <!-- Mood Check -->
+                <div class="space-y-4">
+                    <label class="text-lg font-bold text-slate-200 block magic-font">
+                        <i class="fas fa-heart mr-2 text-rose-400"></i>Emotional Essence
+                    </label>
+                    <div class="flex justify-between gap-2">
+                        <button class="mood-btn flex-1 p-4 rounded-xl border border-purple-500/30 hover:border-rose-400 hover:bg-rose-500/10 transition text-3xl grayscale hover:grayscale-0 group" data-mood="1">
+                            <div class="transform group-hover:scale-110 transition">💀</div>
+                            <div class="text-xs mt-1 text-purple-400 magic-font">Doom</div>
+                        </button>
+                        <button class="mood-btn flex-1 p-4 rounded-xl border border-purple-500/30 hover:border-orange-400 hover:bg-orange-500/10 transition text-3xl grayscale hover:grayscale-0 group" data-mood="2">
+                            <div class="transform group-hover:scale-110 transition">🌧️</div>
+                            <div class="text-xs mt-1 text-purple-400 magic-font">Gloom</div>
+                        </button>
+                        <button class="mood-btn flex-1 p-4 rounded-xl border border-purple-500/30 hover:border-yellow-400 hover:bg-yellow-500/10 transition text-3xl grayscale hover:grayscale-0 group" data-mood="3">
+                            <div class="transform group-hover:scale-110 transition">🌫️</div>
+                            <div class="text-xs mt-1 text-purple-400 magic-font">Mist</div>
+                        </button>
+                        <button class="mood-btn flex-1 p-4 rounded-xl border border-yellow-400 bg-yellow-500/10 transition text-3xl ring-2 ring-yellow-400/50 group" data-mood="4">
+                            <div class="transform group-hover:scale-110 transition">🌤️</div>
+                            <div class="text-xs mt-1 text-purple-400 magic-font">Glow</div>
+                        </button>
+                        <button class="mood-btn flex-1 p-4 rounded-xl border border-purple-500/30 hover:border-emerald-400 hover:bg-emerald-500/10 transition text-3xl grayscale hover:grayscale-0 group" data-mood="5">
+                            <div class="transform group-hover:scale-110 transition">🔥</div>
+                            <div class="text-xs mt-1 text-purple-400 magic-font">Blaze</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Physical Symptoms -->
+                <div class="space-y-3">
+                    <label class="text-lg font-bold text-slate-200 block magic-font">
+                        <i class="fas fa-skull mr-2 text-rose-400"></i>Physical Afflictions
+                    </label>
+                    <div class="flex flex-wrap gap-2" id="symptoms-container">
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="headache">Mind Splitting</button>
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="fatigue">Soul Drained</button>
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="insomnia">Dreamless</button>
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="appetite">Hunger Faded</button>
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="muscle">Body Chains</button>
+                        <button class="symptom-tag px-4 py-2 rounded-full border border-purple-500/30 text-sm hover:border-rose-400 hover:text-rose-400 transition magic-font" data-symptom="none">Unscathed</button>
+                    </div>
+                </div>
+
+                <button id="submit-checkin" class="w-full py-4 rounded-xl magic-btn text-white font-bold text-lg magic-font tracking-widest relative overflow-hidden group">
+                    <span class="relative z-10">Cast Rune & Reveal Destiny</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tracker Section -->
+        <div id="section-tracker" class="section-content space-y-6">
+            <div class="text-center mb-8 floating">
+                <h2 class="text-4xl font-bold magic-font mb-2 glow-text text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-rose-400 to-cyan-400">
+                    Chronicle of Shadows
+                </h2>
+                <p class="text-purple-300 italic">"The grimoire remembers all that was and will be"</p>
+            </div>
+
+            <div class="flex justify-end mb-6">
+                <button id="add-study-session" class="px-6 py-3 rounded-full magic-btn text-white font-bold magic-font relative overflow-hidden group">
+                    <i class="fas fa-quill mr-2"></i>Inscribe Session
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Study Log -->
+                <div class="magic-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold mb-4 flex items-center text-yellow-400 magic-font">
+                        <i class="fas fa-scroll mr-2"></i>Recent Rituals
+                    </h3>
+                    <div class="space-y-3 max-h-96 overflow-y-auto" id="study-log">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Sleep Log -->
+                <div class="magic-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold mb-4 flex items-center text-indigo-400 magic-font">
+                        <i class="fas fa-moon mr-2"></i>Dream Chronicles
+                    </h3>
+                    <div class="space-y-3" id="sleep-log">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Analytics -->
+            <div class="magic-card rounded-2xl p-6">
+                <h3 class="text-lg font-bold mb-6 text-cyan-400 magic-font">
+                    <i class="fas fa-eye mr-2"></i>Arcane Correlations
+                </h3>
+                <div class="h-80">
+                    <canvas id="correlationChart"></canvas>
+                </div>
+                <div class="mt-4 p-4 rounded-lg bg-purple-900/30 border border-purple-500/30">
+                    <p class="text-sm text-purple-200 italic magic-font" id="correlation-insight">
+                        <i class="fas fa-star mr-2 text-yellow-400"></i>
+                        The crystals reveal that thy stress peaks when seeking knowledge beyond 10 hours with less than 6 hours in the dream realm.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wellness Section -->
+        <div id="section-wellness" class="section-content space-y-6">
+            <div class="text-center mb-8 floating">
+                <h2 class="text-4xl font-bold magic-font mb-2 glow-text text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-rose-400 to-cyan-400">
+                    Sanctuary of Light
+                </h2>
+                <p class="text-purple-300 italic">"Ancient wisdom flows through these sacred halls"</p>
+            </div>
+
+            <!-- Current Risk Card -->
+            <div class="magic-card rounded-2xl p-8 text-center max-w-2xl mx-auto mb-8 relative overflow-hidden" id="wellness-risk-card">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-yellow-400 to-rose-400"></div>
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-500/20 mb-4 rune-glow relative">
+                    <i class="fas fa-shield-halved text-5xl text-emerald-400"></i>
+                    <div class="absolute inset-0 rounded-full border-2 border-emerald-400/30 animate-spin" style="animation-duration: 10s;"></div>
+                </div>
+                <h3 class="text-2xl font-bold mb-2 magic-font text-white">Thy Aura is Pure!</h3>
+                <p class="text-purple-300 mb-6 italic">The shadows are at bay. Maintain thy protective wards.</p>
+                <div class="flex justify-center gap-4 text-sm">
+                    <div class="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-400/30 magic-font">
+                        <i class="fas fa-star mr-2"></i>Protected
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tips-grid">
+                <!-- Tips populated by JS based on risk level -->
+            </div>
+
+            <!-- Breathing Exercise -->
+            <div class="magic-card rounded-2xl p-8 mt-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold magic-font mb-4 text-cyan-400 glow-text">Mana Circulation Ritual</h3>
+                        <p class="text-purple-300 mb-6 italic">"Breathe in the ethereal energies. Inhale for 4 counts, hold, exhale, hold. Let the magic flow."</p>
+                        <button id="breathing-btn" class="px-8 py-3 rounded-full magic-btn text-white font-bold magic-font relative overflow-hidden group">
+                            <span class="relative z-10">Begin Ritual</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <div class="magic-circle">
+                            <div class="magic-circle-ring" id="breathing-ring"></div>
+                            <div id="breathing-orb" class="absolute inset-4 rounded-full bg-gradient-to-br from-cyan-400/30 to-purple-500/30 flex items-center justify-center border border-cyan-400/50 transition-all duration-[4000ms]">
+                                <span id="breathing-text" class="text-lg font-bold magic-font text-cyan-300 glow-text">Ready?</span>
+                            </div>
+                        </div>
+                        <div class="absolute -inset-4 rounded-full border border-cyan-400/20 animate-ping hidden" id="breathing-ping"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
